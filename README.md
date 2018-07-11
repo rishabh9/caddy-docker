@@ -1,14 +1,16 @@
 # caddy
 
-A [Docker](https://docker.com) image for [Caddy](https://caddyserver.com). This image includes [git](https://caddyserver.com/docs/http.git), [filemanager](https://caddyserver.com/docs/http.filemanager), [cors](https://caddyserver.com/docs/http.cors), [realip](https://caddyserver.com/docs/http.realip), [expires](https://caddyserver.com/docs/http.expires) and [cache](https://caddyserver.com/docs/http.cache) plugins.
+This is a fork from abiosoft/caddy-docker. Modified to my needs.
+
+A [Docker](https://docker.com) image for [Caddy](https://caddyserver.com). This image includes only the `route53` plugin.
 
 Plugins can be configured via the [`plugins` build arg](#custom-plugins).
 
 
-[![](https://images.microbadger.com/badges/image/abiosoft/caddy.svg)](https://microbadger.com/images/abiosoft/caddy "Get your own image badge on microbadger.com")
-[![](https://img.shields.io/badge/version-0.11.0-blue.svg)](https://github.com/mholt/caddy/tree/v0.11.0)
+[![](https://images.microbadger.com/badges/image/rishabh9/caddy-docker.svg)](https://microbadger.com/images/rishabh9/caddy-docker "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/rishabh9/caddy-docker.svg)](https://microbadger.com/images/rishabh9/caddy-docker "Get your own version badge on microbadger.com")
 
-Check [abiosoft/caddy:builder](https://github.com/abiosoft/caddy-docker/blob/master/BUILDER.md) for generating cross-platform Caddy binaries.
+Check [rishabh9/caddy:builder](https://github.com/rishabh9/caddy-docker/blob/master/BUILDER.md) for generating cross-platform Caddy binaries.
 
 ### License
 
@@ -23,7 +25,7 @@ Starting from `v0.11.0`, [Telemetry stats](https://caddyserver.com/docs/telemetr
 ## Getting Started
 
 ```sh
-$ docker run -d -p 2015:2015 abiosoft/caddy
+$ docker run -d -p 2015:2015 rishabh9/caddy
 ```
 
 Point your browser to `http://127.0.0.1:2015`.
@@ -39,7 +41,7 @@ $ docker run -d \
     -v $(pwd)/Caddyfile:/etc/Caddyfile \
     -v $HOME/.caddy:/root/.caddy \
     -p 80:80 -p 443:443 \
-    abiosoft/caddy
+    rishabh9/caddy
 ```
 
 
@@ -52,7 +54,7 @@ $ docker run -d \
     -e "CADDYPATH=/etc/caddycerts" \
     -v $HOME/.caddy:/etc/caddycerts \
     -p 80:80 -p 443:443 \
-    abiosoft/caddy
+    rishabh9/caddy
 ```
 
 Above, we utilize the `CADDYPATH` environment variable to define a different location inside the container for
@@ -61,7 +63,7 @@ certificates to be stored. This is probably the safest option as it ensures any 
 ### PHP
 `:[<version>-]php` variant of this image bundles PHP-FPM alongside essential php extensions and [composer](https://getcomposer.org). e.g. `:php`, `:0.10.14-php`
 ```sh
-$ docker run -d -p 2015:2015 abiosoft/caddy:php
+$ docker run -d -p 2015:2015 rishabh9/caddy:php
 ```
 Point your browser to `http://127.0.0.1:2015` and you will see a php info page.
 
@@ -69,7 +71,7 @@ Point your browser to `http://127.0.0.1:2015` and you will see a php info page.
 
 Replace `/path/to/php/src` with your php sources directory.
 ```sh
-$ docker run -d -v /path/to/php/src:/srv -p 2015:2015 abiosoft/caddy:php
+$ docker run -d -v /path/to/php/src:/srv -p 2015:2015 rishabh9/caddy:php
 ```
 Point your browser to `http://127.0.0.1:2015`.
 
@@ -82,16 +84,16 @@ Caddy can serve sites from git repository using [git](https://caddyserver.com/do
 
 ##### Create Caddyfile
 
-Replace `github.com/abiosoft/webtest` with your repository.
+Replace `github.com/rishabh9/webtest` with your repository.
 
 ```sh
-$ printf "0.0.0.0\nroot src\ngit github.com/abiosoft/webtest" > Caddyfile
+$ printf "0.0.0.0\nroot src\ngit github.com/rishabh9/webtest" > Caddyfile
 ```
 
 ##### Run the image
 
 ```sh
-$ docker run -d -v $(pwd)/Caddyfile:/etc/Caddyfile -p 2015:2015 abiosoft/caddy
+$ docker run -d -v $(pwd)/Caddyfile:/etc/Caddyfile -p 2015:2015 rishabh9/caddy
 ```
 Point your browser to `http://127.0.0.1:2015`.
 
@@ -101,7 +103,7 @@ You can build a docker image with custom plugins by specifying `plugins` build a
 ```
 docker build --build-arg \
     plugins=filemanager,git,linode \
-    github.com/abiosoft/caddy-docker.git
+    github.com/rishabh9/caddy-docker.git
 ```
 
 ## Usage
@@ -133,7 +135,7 @@ $ docker run -d \
     -v /path/to/sites/root:/srv \
     -v path/to/Caddyfile:/etc/Caddyfile \
     -p 2015:2015 \
-    abiosoft/caddy
+    rishabh9/caddy
 ```
 
 ### Let's Encrypt Auto SSL
@@ -154,5 +156,5 @@ You can change the the ports if ports 80 and 443 are not available on host. e.g.
 $ docker run -d \
     -v $(pwd)/Caddyfile:/etc/Caddyfile \
     -p 80:80 -p 443:443 \
-    abiosoft/caddy
+    rishabh9/caddy
 ```
